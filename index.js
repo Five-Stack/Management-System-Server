@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     const usersCollection = client.db('managementSystemDB').collection('users')
     const departmentCollection = client.db("managementSystemDB").collection("allDepartments")
 
@@ -38,7 +38,7 @@ async function run() {
       try {
         const departments = await departmentCollection.find({}).toArray()
         if (departments.length === 0) return res.status(404).json({ message: "No Departments Data Found!" })
-        res.status(201).json(departments)
+        res.status(200).send(departments)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
         console.log({ message: error });
@@ -50,7 +50,7 @@ async function run() {
       try {
         const newDepartment = req.body
         const result = await departmentCollection.insertOne(newDepartment)
-        res.status(201).send(result)
+        res.status(200).send(result)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
         console.log({ message: error });
@@ -75,7 +75,8 @@ async function run() {
           },
         };
         const result = await departmentCollection.updateOne(filter, updateDepartmentData, options)
-        res.status(201).send(result)
+        if (result.modifiedCount === 0) return res.status(404).json({ message: "Department data not found!" })
+        res.status(200).send(result)
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
@@ -89,7 +90,8 @@ async function run() {
         const id = req.params.id
         const query = { _id: new ObjectId(id) }
         const deleteDepartment = await departmentCollection.deleteOne(query)
-        res.status(201).send(deleteDepartment)
+        if (deleteDepartment.deletedCount === 0) return res.status(404).json({ message: "Department data not found!" })
+        res.status(200).send(deleteDepartment)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
         console.log({ message: error });
