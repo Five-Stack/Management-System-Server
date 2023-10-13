@@ -1,0 +1,43 @@
+[
+  {
+    "teacherName": "John Doe",
+    "teacherImg": "https://i.ibb.co/YLJ9H25/waist-up-portrait-handsome-serious-unshaven-male-keeps-hands-together-dressed-dark-blue-shirt-has-ta.jpg",
+    "designation": "Instructor",
+    "contactNo": "01712345678",
+    "email": "john.doe@example.com",
+    "facebookUrl": "https://www.facebook.com/johndoe"
+  },
+  {
+    "teacherName": "Alice Smith",
+    "teacherImg": "https://i.ibb.co/xF2ZCLw/young-handsome-man-holding-notebooks-concept-e-learning-courses-1258-26588.jpg",
+    "designation": "Instructor",
+    "contactNo": "01823456789",
+    "email": "alice.smith@example.com",
+    "facebookUrl": "https://www.facebook.com/alicesmith"
+  },
+  {
+    "teacherName": "Bob Johnson",
+    "teacherImg": "https://i.ibb.co/VjvFns8/senior-male-professor-holding-notebook-standing-against-blackboard-23-2148200961.jpg",
+    "designation": "Lecturer",
+    "contactNo": "01934567890",
+    "email": "bob.johnson@example.com",
+    "facebookUrl": "https://www.facebook.com/bobjohnson"
+  },
+  {
+    "teacherName": "Eve Wilson",
+    "teacherImg": "https://i.ibb.co/HHdQ9tg/happy-teacher-with-students-background-1098-2917.jpg",
+    "designation": "Instructor",
+    "contactNo": "01645678901",
+    "email": "eve.wilson@example.com",
+    "facebookUrl": "https://www.facebook.com/evewilson"
+  },
+  {
+    "teacherName": "David Brown",
+    "teacherImg": "https://i.ibb.co/BP7Cfy2/front-view-man-doing-presentation-during-meeting-23-2148817046.jpg",
+    "designation": "Lecturer",
+    "contactNo": "01556789012",
+    "email": "david.brown@example.com",
+    "facebookUrl": "https://www.facebook.com/davidbrown"
+  }
+]
+

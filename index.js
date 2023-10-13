@@ -28,6 +28,8 @@ async function run() {
     // await client.connect();
     const usersCollection = client.db('managementSystemDB').collection('users')
     const departmentCollection = client.db("managementSystemDB").collection("allDepartments")
+    const labsCollection = client.db("managementSystemDB").collection("labs")
+    const teachersCollection = client.db("managementSystemDB").collection("teachers")
 
 
 
@@ -184,7 +186,7 @@ async function run() {
 
 
 
-/* ========================================================================================================================= */
+    /* ========================================================================================================================= */
 
     // departmentCollection all operations
 
@@ -290,16 +292,220 @@ async function run() {
 
 
 
+    /* ========================================================================================================================= */
+
+    // our all lab api
+
+    // get data all labs
+    app.get('/api/labs', async (req, res) => {
+      try {
+        const labs = await labsCollection.find({}).toArray()
+        if (labs.length === 0) return res.status(404).json({ message: "Labs not founds !" })
+        res.status(200).send(labs)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        console.log({ message: error });
+      }
+    })
+
+    // add new labData
+    app.post('/api/addLab', async (req, res) => {
+      try {
+        const newLab = req.body
+        const result = await labsCollection.insertOne(newLab)
+        res.status(200).send(result)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        console.log({ message: error });
+      }
+    })
+
+    // update lab data
+    app.put('/api/updateLab/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const updateData = req.body;
+        const filter = { _id: new ObjectId(id) };
+
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid lab ID format" });
+          return;
+        }
+
+        // Check if the lab with the provided ID exists
+        const existingLab = await labsCollection.findOne(filter);
+        if (!existingLab) {
+          res.status(404).json({ message: "Lab data not found" });
+          return;
+        }
+
+        const options = { upsert: true };
+        const udateLabData = {
+          $set: {
+            labName: updateData.labName ? updateData.labName : null,
+            labImg: updateData.labImg ? updateData.labImg : null
+          },
+        };
+
+        const result = await labsCollection.updateOne(filter, udateLabData, options);
+
+        if (result.modifiedCount === 0) {
+          res.status(404).json({ message: "Lab data not found" });
+        } else {
+          res.status(200).json({ message: "Lab data updated successfully" });
+        }
+
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error ⚠" });
+        console.log({ message: error });
+      }
+    });
+
+    // delete lab data
+    app.delete('/api/deleteLab/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid lab ID format' });
+        }
+
+        const query = { _id: new ObjectId(id) };
+        const existingLab = await labsCollection.findOne(query);
+
+        if (!existingLab) {
+          return res.status(404).json({ message: 'Lab data not found' });
+        }
+
+        const deleteLab = await labsCollection.deleteOne(query);
+
+        if (deleteLab.deletedCount === 1) {
+          return res.status(200).json({ message: 'Lab deleted successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to delete lab' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error ⚠' });
+        console.log({ message: error });
+      }
+    });
+
+
+
+
+    /* ========================================================================================================================= */
+
+    // our all teachers api
+
+    // get data all teachers
+    app.get('/api/teachers', async (req, res) => {
+      try {
+        const teachers = await teachersCollection.find({}).toArray()
+        if (teachers.length === 0) return res.status(404).json({ message: "Teachers not founds !" })
+        res.status(200).send(teachers)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        console.log({ message: error });
+      }
+    })
+
+    // add new teacherData
+    app.post('/api/addTeacher', async (req, res) => {
+      try {
+        const newTeacher = req.body
+        const result = await teachersCollection.insertOne(newTeacher)
+        res.status(200).send(result)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        console.log({ message: error });
+      }
+    })
+
+    // Update teacher data
+    app.put('/api/updateTeacher/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const updateData = req.body;
+        const filter = { _id: new ObjectId(id) };
+
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid teacher ID format" });
+          return;
+        }
+
+        // Check if the teacher with the provided ID exists
+        const existingTeacher = await teachersCollection.findOne(filter);
+        if (!existingTeacher) {
+          res.status(404).json({ message: "Teacher data not found" });
+          return;
+        }
+
+        const options = { upsert: true };
+        const updateTeacherData = {
+          $set: {
+            teacherName: updateData.teacherName ? updateData.teacherName : null,
+            teacherImg: updateData.teacherImg ? updateData.teacherImg : null,
+            designation: updateData.designation ? updateData.designation : null,
+            contactNo: updateData.contactNo ? updateData.contactNo : null,
+            email: updateData.email ? updateData.email : null,
+            facebookUrl: updateData.facebookUrl ? updateData.facebookUrl : null
+          },
+        };
+
+        const result = await teachersCollection.updateOne(filter, updateTeacherData, options);
+
+        if (result.modifiedCount === 0) {
+          res.status(404).json({ message: "Teacher data not found" });
+        } else {
+          res.status(200).json({ message: "Teacher data updated successfully" });
+        }
+
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error ⚠" });
+        console.log({ message: error });
+      }
+    });
+
+
+    // Delete teacher data
+    app.delete('/api/deleteTeacher/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid teacher ID format' });
+        }
+
+        const query = { _id: new ObjectId(id) };
+        const existingTeacher = await teachersCollection.findOne(query);
+
+        if (!existingTeacher) {
+          return res.status(404).json({ message: 'Teacher data not found' });
+        }
+
+        const deleteTeacher = await teachersCollection.deleteOne(query);
+
+        if (deleteTeacher.deletedCount === 1) {
+          return res.status(200).json({ message: 'Teacher deleted successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to delete teacher' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error ⚠' });
+        console.log({ message: error });
+      }
+    });
 
 
 
 
 
 
-
-
-
-
+    /* ========================================================================================================================= */
 
 
 
@@ -388,5 +594,3 @@ app.listen(port, () => {
       //     clientSecret:paymentIntent.client_secret
       //   })
       // })
-
-
