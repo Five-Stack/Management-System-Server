@@ -594,5 +594,3 @@ app.listen(port, () => {
       //     clientSecret:paymentIntent.client_secret
       //   })
       // })
-
-

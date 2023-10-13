@@ -35,6 +35,18 @@
 
 ---
 
+- [Teacher Api Teacher API Documentation](#teacher)
+  - [Teacher Get Api](#teacher-get)
+  - [Teacher Add Api](#teacher-add)
+  - [Teacher Update Api](#teacher-update)
+  - [Teacher Delete Api](#teacher-delete)
+
+---
+
+
+
+
+
 <!-- - [Blog Api Blog API Documentation](#blog)
   - [Blog Get Api](#blog-get)
   - [Blog Add Api](#blog-add)
@@ -329,3 +341,113 @@ Please ensure that you replace placeholders like `:id` with actual values when m
 ##### [Go to top:arrow_up: ](#top)
 
 ---
+
+
+
+
+---
+
+<a name="teacher"></a>
+
+**Teacher API Documentation**
+
+ManagementSystem provides a Teacher API that allows you to manage teacher-related operations. This API includes the following endpoints:
+
+<a name="teacher-get"></a>
+
+1. **Teacher Get API**
+
+   - Endpoint: `/api/teachers`
+   - Method: GET
+   - Description: Retrieve a list of all teachers in the system.
+
+   **Usage Example:**
+   To fetch a list of all teachers, make a GET request to `/api/teachers`. This will return a JSON response containing teacher data.
+
+##### [Go to top:arrow_up: ](#top)
+
+<a name="teacher-add"></a>
+
+2. **Teacher Add API**
+
+   - Endpoint: `/api/addTeacher`
+   - Method: POST
+   - Description: Add a new teacher to the system.
+
+   **Usage Example:**
+   To add a new teacher, make a POST request to `/api/addTeacher` with a JSON request body containing teacher information, such as labname, email, and password. The server will create a new teacher and return a confirmation message.
+
+   ```json
+   POST /api/addTeacher
+   Request Body:
+
+   {
+     "labName": "Computer teacher",
+    "labImg": "https://i.ibb.co/LdZ9Wr7/modern-equipped-computer-teacher-23-2149241198.jpg"
+   }
+   ```
+
+##### [Go to top:arrow_up: ](#top)
+
+<a name="teacher-update"></a>
+
+3. **Teacher Update API**
+
+   - Endpoint: `/api/updateTeacher/:id`
+   - Method: PUT or PATCH
+   - Description: Update an existing teacher's information, identified by their unique `id`.
+
+   **Usage Example:**
+   To update a teacher's information, make a PUT or PATCH request to `/api/updateTeacher/:id`, where `:id` is the unique identifier of the teacher you want to update. Provide a JSON request body with the fields you wish to update.
+
+   ```json
+   PUT /api/updateTeacher/123
+   Request Body:
+   {
+    "teacherName": "David Brown",
+    "teacherImg": "https://i.ibb.co/BP7Cfy2/front-view-man-doing-presentation-during-meeting-23-2148817046.jpg",
+    "designation": "Lecturer",
+    "contactNo": "01556789012",
+    "email": "david.brown@example.com",
+    "facebookUrl": "https://www.facebook.com/davidbrown"
+   }
+   ```
+
+##### [Go to top:arrow_up: ](#top)
+
+<a name="teacher-delete"></a>
+
+4. **Delete Teacher API**
+
+   - Endpoint: `/api/deleteTeacher/:id`
+   - Method: DELETE
+   - Description: Delete a teacher from the system, identified by their unique `id`.
+
+   **Usage Example:**
+   To delete a teacher, make a DELETE request to `/api/deleteTeacher/:id`, where `:id` is the unique identifier of the teacher you want to delete.
+
+   ```
+   DELETE /api/deleteTeacher/123
+   ```
+
+Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the ManagementSystem API. For more specific details and any additional headers or parameters needed for authentication, consult the ManagementSystem API documentation or reach out to the API provider.
+
+##### [Go to top:arrow_up: ](#top)
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
