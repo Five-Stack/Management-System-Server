@@ -14,6 +14,7 @@
   - [User Get Api](#user-get)
   - [User Add Api](#user-add)
   - [User Update Api](#user-update)
+  - [User Role Update Api](#user-role-update)
   - [User Delete Api](#user-delete)
 
 ---
@@ -26,7 +27,6 @@
 
 ---
 
-
 <!-- - [Blog Api Blog API Documentation](#blog)
   - [Blog Get Api](#blog-get)
   - [Blog Add Api](#blog-add)
@@ -34,9 +34,6 @@
   - [Blog Delete Api](#blog-delete)
 
 --- -->
-
-
-
 
 <a name="user"></a>
 
@@ -61,21 +58,22 @@ CarrierBridge provides a User API that allows you to manage user-related operati
 
 2. **User Add API**
 
-   - Endpoint: `/api/newUser`
+   - Endpoint: `/api/addUser`
    - Method: POST
    - Description: Add a new user to the system.
 
    **Usage Example:**
-   To add a new user, make a POST request to `/api/newUser` with a JSON request body containing user information, such as username, email, and password. The server will create a new user and return a confirmation message.
+   To add a new user, make a POST request to `/api/addUser` with a JSON request body containing user information, such as username, email, and password. The server will create a new user and return a confirmation message.
 
    ```json
-   POST /api/newUser
+   POST /api/addUser
    Request Body:
    {
-       "name": "newuser123",
-       "email": "newuser@example.com",
-       "image": "https://images.unsplash.com/photo.jpg"
-       // Add other user details here as needed
+     userName": "John Doe",
+    "email": "john.doe@example.com",
+    "phoneNo": "01711-XXXXXX",
+    "userImg": "https://i.ibb.co/CQt5BBG/front-view-male-student-wearing-black-backpack-holding-copybooks-files-blue-wall-140725-42637.jpg",
+    "role": "student"
    }
    ```
 
@@ -85,37 +83,67 @@ CarrierBridge provides a User API that allows you to manage user-related operati
 
 3. **User Update API**
 
-   - Endpoint: `/api/userUpdate/:id`
-   - Method: PUT or PATCH
+   - Endpoint: `/api/updateUser/:id`
+   - Method: PUT
    - Description: Update an existing user's information, identified by their unique `id`.
 
    **Usage Example:**
-   To update a user's information, make a PUT or PATCH request to `/api/userUpdate/:id`, where `:id` is the unique identifier of the user you want to update. Provide a JSON request body with the fields you wish to update.
+   To update a user's information, make a PUT or PATCH request to `/api/updateUser/:id`, where `:id` is the unique identifier of the user you want to update. Provide a JSON request body with the fields you wish to update.
 
    ```json
-   PUT /api/userUpdate/123
+   PUT /api/updateUser/123
    Request Body:
    {
-       "email": "updatedemail@example.com",
-       // Update other user details here as needed
+     userName": "John Doe",
+    "email": "john.doe@example.com",
+    "phoneNo": "01711-XXXXXX",
+    "userImg": "https://i.ibb.co/CQt5BBG/front-view-male-student-wearing-black-backpack-holding-copybooks-files-blue-wall-140725-42637.jpg",
+    "role": "student"
    }
    ```
 
 ##### [Go to top:arrow_up: ](#top)
 
+
+<a name="user-role-update"></a>
+
+4. **User Role Update API**
+
+   - **Endpoint:** `/api/updateUserRole/:id`
+   - **Method:** PATCH
+   - **Description:** This API allows you to update the role of an existing user, identified by their unique `id`. The only roles that can be updated are `[student, teacher, admin]`. Attempting to set any other role will result in an error.
+
+   **Usage Example:**
+   To update a user's role, make a PATCH request to `/api/updateUserRole/:id`, where `:id` is the unique identifier of the user you want to update. Provide a JSON request body with the "role" field and set it to one of the allowed roles.
+
+   ```http
+   PATCH /api/updateUserRole/123
+   Request Body:
+   {
+    "role": "teacher"
+   }
+   ```
+   In the example above, the user with `id` 123 will have their role updated to "teacher".
+
+##### [Go to top:arrow_up: ](#top)
+
+
+
+
+
 <a name="user-delete"></a>
 
 4. **Delete User API**
 
-   - Endpoint: `/api/userDelete/:id`
+   - Endpoint: `/api/deleteUser/:id`
    - Method: DELETE
    - Description: Delete a user from the system, identified by their unique `id`.
 
    **Usage Example:**
-   To delete a user, make a DELETE request to `/api/userDelete/:id`, where `:id` is the unique identifier of the user you want to delete.
+   To delete a user, make a DELETE request to `/api/deleteUser/:id`, where `:id` is the unique identifier of the user you want to delete.
 
    ```
-   DELETE /api/userDelete/123
+   DELETE /api/deleteUser/123
    ```
 
 Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the CarrierBridge API. For more specific details and any additional headers or parameters needed for authentication, consult the CarrierBridge API documentation or reach out to the API provider.
@@ -208,7 +236,6 @@ CarrierBridge provides a Department API that allows you to manage department-rel
 Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the CarrierBridge API. For more specific details and any additional headers or parameters needed for authentication, consult the CarrierBridge API documentation or reach out to the API provider.
 
 ##### [Go to top:arrow_up: ](#top)
-
 
 ---
 
