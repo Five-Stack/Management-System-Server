@@ -110,6 +110,48 @@ async function run() {
       }
     });
 
+
+    // update user role data
+    app.patch('/api/updateUserRole/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const newRole = req.body.role;
+
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid user ID format' });
+        }
+
+        // Check if the requested role is valid
+        const validRoles = ['student', 'teacher', 'admin'];
+        if (!validRoles.includes(newRole)) {
+          return res.status(400).json({ message: 'Invalid user role' });
+        }
+
+        const filter = { _id: new ObjectId(id) };
+        const existingUser = await usersCollection.findOne(filter);
+
+        if (!existingUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+
+        const updateData = {
+          $set: { role: newRole }
+        };
+
+        const result = await usersCollection.updateOne(filter, updateData);
+
+        if (result.modifiedCount === 1) {
+          return res.status(200).json({ message: 'User role updated successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to update user role' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error ⚠' });
+        console.log({ message: error });
+      }
+    });
+
     // delete user
     app.delete('/api/deleteUser/:id', async (req, res) => {
       try {
@@ -214,49 +256,6 @@ async function run() {
         console.log({ message: error });
       }
     });
-
-
-    // update user role data
-    app.patch('/api/userRoleUpdate/:id', async (req, res) => {
-      try {
-        const id = req.params.id;
-        const newRole = req.body.role;
-
-        // Check if the provided id is in a valid ObjectId format
-        if (!ObjectId.isValid(id)) {
-          return res.status(400).json({ message: 'Invalid user ID format' });
-        }
-
-        // Check if the requested role is valid
-        const validRoles = ['student', 'teacher', 'admin'];
-        if (!validRoles.includes(newRole)) {
-          return res.status(400).json({ message: 'Invalid user role' });
-        }
-
-        const filter = { _id: new ObjectId(id) };
-        const existingUser = await usersCollection.findOne(filter);
-
-        if (!existingUser) {
-          return res.status(404).json({ message: 'User not found' });
-        }
-
-        const updateData = {
-          $set: { role: newRole }
-        };
-
-        const result = await usersCollection.updateOne(filter, updateData);
-
-        if (result.modifiedCount === 1) {
-          return res.status(200).json({ message: 'User role updated successfully' });
-        } else {
-          return res.status(500).json({ message: 'Failed to update user role' });
-        }
-      } catch (error) {
-        res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
-      }
-    });
-
 
 
     // delete department data
@@ -389,6 +388,5 @@ app.listen(port, () => {
       //     clientSecret:paymentIntent.client_secret
       //   })
       // })
-
 
 
