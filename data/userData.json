@@ -1,0 +1,37 @@
+[
+  {
+    "userName": "John Doe",
+    "email": "john.doe@example.com",
+    "phoneNo": "01711-XXXXXX",
+    "userImg": "https://i.ibb.co/CQt5BBG/front-view-male-student-wearing-black-backpack-holding-copybooks-files-blue-wall-140725-42637.jpg",
+    "role": "student"
+  },
+  {
+    "userName": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "phoneNo": "01819-XXXXXX",
+    "userImg": "https://i.ibb.co/ZB8TmNN/young-smiling-confident-woman-using-laptop-computer-looking-camera-isolated-white-background-231208.jpg",
+    "role": "student"
+  },
+  {
+    "userName": "Bob Johnson",
+    "email": "bob.johnson@example.com",
+    "phoneNo": "01611-XXXXXX",
+    "userImg": "https://i.ibb.co/DWTfHkL/young-handsome-man-looking-very-shocked-surprised-university-student-concept-1194-242541.jpg",
+    "role": "student"
+  },
+  {
+    "userName": "Alice Brown",
+    "email": "alice.brown@example.com",
+    "phoneNo": "01511-XXXXXX",
+    "userImg": "https://i.ibb.co/sHqGDgq/young-student-person-isolated-background-1368-174554.jpg",
+    "role": "student"
+  },
+  {
+    "userName": "Chris Lee",
+    "email": "chris.lee@example.com",
+    "phoneNo": "01911-XXXXXX",
+    "userImg": "https://i.ibb.co/x8QmrsV/portrait-smiling-african-american-male-college-student-walking-with-coffee-isolated-white-wall-23120.jpg",
+    "role": "student"
+  }
+]

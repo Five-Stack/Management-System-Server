@@ -31,6 +31,119 @@ async function run() {
 
 
 
+    // userCollection all api
+
+    // get data all users
+    app.get('/api/users', async (req, res) => {
+      try {
+        const users = await usersCollection.find({}).toArray()
+        if (users.length === 0) return res.status(404).json({ message: "User not founds !" })
+        res.status(200).send(users)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        console.log({ message: error });
+      }
+    })
+
+    // add new user
+    app.post('/api/addUser', async (req, res) => {
+      try {
+        const user = req.body;
+        const query = { email: user.email }
+        // console.log(user,'user');
+        const existingUser = await usersCollection.findOne(query);
+
+        if (existingUser) {
+          return res.status(404).send({ message: 'User already exists' })
+        }
+
+        const result = await usersCollection.insertOne(user);
+        res.status(200).send(result);
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        console.log({ message: error });
+      }
+    })
+
+    // update any user data
+    app.put('/api/updateUser/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const userDataUpdate = req.body;
+        const filter = { _id: new ObjectId(id) };
+
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid user ID format" });
+          return;
+        }
+
+        // Check if the user with the provided ID exists
+        const existingUser = await usersCollection.findOne(filter);
+        if (!existingUser) {
+          res.status(404).json({ message: "User data not found" });
+          return;
+        }
+
+        const options = { upsert: true };
+        const updateUser = {
+          $set: {
+            userName: userDataUpdate.userName ? userDataUpdate.userName : null,
+            email: userDataUpdate.email ? userDataUpdate.email : null,
+            phoneNo: userDataUpdate.phoneNo ? userDataUpdate.phoneNo : null,
+            userImg: userDataUpdate.userImg ? userDataUpdate.userImg : null,
+            role: userDataUpdate.role ? userDataUpdate.role : "student",
+          },
+        };
+
+        const result = await usersCollection.updateOne(filter, updateUser, options);
+
+        if (result.modifiedCount === 0) {
+          res.status(404).json({ message: "User data not found" });
+        } else {
+          res.status(200).json({ message: "User data updated successfully" });
+        }
+
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error ⚠" });
+        console.log({ message: error });
+      }
+    });
+
+    // delete user
+    app.delete('/api/deleteUser/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid user ID format' });
+        }
+
+        const filter = { _id: new ObjectId(id) };
+        const existingUser = await usersCollection.findOne(filter);
+
+        if (!existingUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+
+        const result = await usersCollection.deleteOne(filter);
+
+        if (result.deletedCount === 1) {
+          return res.status(200).json({ message: 'User deleted successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to delete user' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error ⚠' });
+        console.log({ message: error });
+      }
+    });
+
+
+
+/* ========================================================================================================================= */
+
     // departmentCollection all operations
 
     //get data departmentCollection data
@@ -60,11 +173,24 @@ async function run() {
     // update department data
     app.put('/api/updateDepartment/:id', async (req, res) => {
       try {
-        const id = req.params.id
-        const updateData = req.body
+        const id = req.params.id;
+        const updateData = req.body;
         const filter = { _id: new ObjectId(id) };
+
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid department ID format" });
+          return;
+        }
+
+        // Check if the department with the provided ID exists
+        const existingDepartment = await departmentCollection.findOne(filter);
+        if (!existingDepartment) {
+          res.status(404).json({ message: "Department data not found" });
+          return;
+        }
+
         const options = { upsert: true };
-        // const {departmentName,departmentImg,departmentInfo,admissionEligibility,Workplaces} = value
         const updateDepartmentData = {
           $set: {
             departmentName: updateData.departmentName ? updateData.departmentName : null,
@@ -74,29 +200,95 @@ async function run() {
             Workplaces: updateData.Workplaces ? updateData.Workplaces : null,
           },
         };
-        const result = await departmentCollection.updateOne(filter, updateDepartmentData, options)
-        if (result.modifiedCount === 0) return res.status(404).json({ message: "Department data not found!" })
-        res.status(200).send(result)
+
+        const result = await departmentCollection.updateOne(filter, updateDepartmentData, options);
+
+        if (result.modifiedCount === 0) {
+          res.status(404).json({ message: "Department data not found" });
+        } else {
+          res.status(200).json({ message: "Department data updated successfully" });
+        }
 
       } catch (error) {
-        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        res.status(500).json({ message: "Internal server error ⚠" });
         console.log({ message: error });
       }
-    })
+    });
+
+
+    // update user role data
+    app.patch('/api/userRoleUpdate/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const newRole = req.body.role;
+
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid user ID format' });
+        }
+
+        // Check if the requested role is valid
+        const validRoles = ['student', 'teacher', 'admin'];
+        if (!validRoles.includes(newRole)) {
+          return res.status(400).json({ message: 'Invalid user role' });
+        }
+
+        const filter = { _id: new ObjectId(id) };
+        const existingUser = await usersCollection.findOne(filter);
+
+        if (!existingUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+
+        const updateData = {
+          $set: { role: newRole }
+        };
+
+        const result = await usersCollection.updateOne(filter, updateData);
+
+        if (result.modifiedCount === 1) {
+          return res.status(200).json({ message: 'User role updated successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to update user role' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error ⚠' });
+        console.log({ message: error });
+      }
+    });
+
+
 
     // delete department data
     app.delete('/api/deleteDepartment/:id', async (req, res) => {
       try {
-        const id = req.params.id
-        const query = { _id: new ObjectId(id) }
-        const deleteDepartment = await departmentCollection.deleteOne(query)
-        if (deleteDepartment.deletedCount === 0) return res.status(404).json({ message: "Department data not found!" })
-        res.status(200).send(deleteDepartment)
+        const id = req.params.id;
+
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid department ID format' });
+        }
+
+        const query = { _id: new ObjectId(id) };
+        const existingDepartment = await departmentCollection.findOne(query);
+
+        if (!existingDepartment) {
+          return res.status(404).json({ message: 'Department data not found' });
+        }
+
+        const deleteDepartment = await departmentCollection.deleteOne(query);
+
+        if (deleteDepartment.deletedCount === 1) {
+          return res.status(200).json({ message: 'Department deleted successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to delete department' });
+        }
       } catch (error) {
-        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        res.status(500).json({ message: 'Internal server error ⚠' });
         console.log({ message: error });
       }
-    })
+    });
+
 
 
 
