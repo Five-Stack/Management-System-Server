@@ -27,6 +27,14 @@
 
 ---
 
+- [Lab Api Lab API Documentation](#lab)
+  - [Lab Get Api](#lab-get)
+  - [Lab Add Api](#lab-add)
+  - [Lab Update Api](#lab-update)
+  - [Lab Delete Api](#lab-delete)
+
+---
+
 <!-- - [Blog Api Blog API Documentation](#blog)
   - [Blog Get Api](#blog-get)
   - [Blog Add Api](#blog-add)
@@ -104,7 +112,6 @@ CarrierBridge provides a User API that allows you to manage user-related operati
 
 ##### [Go to top:arrow_up: ](#top)
 
-
 <a name="user-role-update"></a>
 
 4. **User Role Update API**
@@ -123,13 +130,10 @@ CarrierBridge provides a User API that allows you to manage user-related operati
     "role": "teacher"
    }
    ```
+
    In the example above, the user with `id` 123 will have their role updated to "teacher".
 
 ##### [Go to top:arrow_up: ](#top)
-
-
-
-
 
 <a name="user-delete"></a>
 
@@ -239,91 +243,89 @@ Please ensure that you replace placeholders like `:id` with actual values when m
 
 ---
 
-<!--
-<a name="blog"></a>
+---
 
-**Blog API Documentation**
+<a name="lab"></a>
 
-CarrierBridge provides a Blog API that allows you to manage blog-related operations. This API includes the following endpoints:
+**Lab API Documentation**
 
-<a name="blog-get"></a>
+CarrierBridge provides a Lab API that allows you to manage lab-related operations. This API includes the following endpoints:
 
-1. **Blog Get API**
+<a name="lab-get"></a>
 
-   - Endpoint: `/api/blogs`
+1. **Lab Get API**
+
+   - Endpoint: `/api/labs`
    - Method: GET
-   - Description: Retrieve a list of all blogs in the system.
+   - Description: Retrieve a list of all labs in the system.
 
    **Usage Example:**
-   To fetch a list of all blogs, make a GET request to `/api/blogs`. This will return a JSON response containing blog data.
+   To fetch a list of all labs, make a GET request to `/api/labs`. This will return a JSON response containing lab data.
 
 ##### [Go to top:arrow_up: ](#top)
 
-<a name="blog-add"></a>
+<a name="lab-add"></a>
 
-2. **Blog Add API**
+2. **Lab Add API**
 
-   - Endpoint: `/api/newBlog`
+   - Endpoint: `/api/addLab`
    - Method: POST
-   - Description: Add a new blog to the system.
+   - Description: Add a new lab to the system.
 
    **Usage Example:**
-   To add a new blog, make a POST request to `/api/newBlog` with a JSON request body containing blog information, such as blogname, email, and password. The server will create a new blog and return a confirmation message.
+   To add a new lab, make a POST request to `/api/addLab` with a JSON request body containing lab information, such as labname, email, and password. The server will create a new lab and return a confirmation message.
 
    ```json
-   POST /api/newBlog
+   POST /api/addLab
    Request Body:
 
    {
-   "imgSrc": "https://i.ibb.co/4ttvcdJ/interview.jpg",
-  "date": "March 25, 2023",
-  "comment": "Great advice!",
-  "title": "5 Tips For A Successful Job Interview",
-       // Add other blog details here as needed
+     "labName": "Computer lab",
+    "labImg": "https://i.ibb.co/LdZ9Wr7/modern-equipped-computer-lab-23-2149241198.jpg"
    }
    ```
 
 ##### [Go to top:arrow_up: ](#top)
 
-<a name="blog-update"></a>
+<a name="lab-update"></a>
 
-3. **Blog Update API**
+3. **Lab Update API**
 
-   - Endpoint: `/api/blogUpdate/:id`
+   - Endpoint: `/api/updateLab/:id`
    - Method: PUT or PATCH
-   - Description: Update an existing blog's information, identified by their unique `id`.
+   - Description: Update an existing lab's information, identified by their unique `id`.
 
    **Usage Example:**
-   To update a blog's information, make a PUT or PATCH request to `/api/blogUpdate/:id`, where `:id` is the unique identifier of the blog you want to update. Provide a JSON request body with the fields you wish to update.
+   To update a lab's information, make a PUT or PATCH request to `/api/updateLab/:id`, where `:id` is the unique identifier of the lab you want to update. Provide a JSON request body with the fields you wish to update.
 
    ```json
-   PUT /api/blogUpdate/123
+   PUT /api/updateLab/123
    Request Body:
    {
-       "title": "Tips For Succeeding In A Remote Job",
-       // Update other blog details here as needed
+     "labName": "Computer lab",
+    "labImg": "https://i.ibb.co/LdZ9Wr7/modern-equipped-computer-lab-23-2149241198.jpg"
    }
    ```
 
 ##### [Go to top:arrow_up: ](#top)
 
-<a name="blog-delete"></a>
+<a name="lab-delete"></a>
 
-4. **Delete Blog API**
+4. **Delete Lab API**
 
-   - Endpoint: `/api/blogDelete/:id`
+   - Endpoint: `/api/deleteLab/:id`
    - Method: DELETE
-   - Description: Delete a blog from the system, identified by their unique `id`.
+   - Description: Delete a lab from the system, identified by their unique `id`.
 
    **Usage Example:**
-   To delete a blog, make a DELETE request to `/api/blogDelete/:id`, where `:id` is the unique identifier of the blog you want to delete.
+   To delete a lab, make a DELETE request to `/api/deleteLab/:id`, where `:id` is the unique identifier of the lab you want to delete.
 
    ```
-   DELETE /api/blogDelete/123
+   DELETE /api/deleteLab/123
    ```
 
 Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the CarrierBridge API. For more specific details and any additional headers or parameters needed for authentication, consult the CarrierBridge API documentation or reach out to the API provider.
 
 ##### [Go to top:arrow_up: ](#top)
 
- -->
+---
