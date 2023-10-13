@@ -47,7 +47,7 @@
 
 **User API Documentation**
 
-CarrierBridge provides a User API that allows you to manage user-related operations. This API includes the following endpoints:
+ManagementSystem provides a User API that allows you to manage user-related operations. This API includes the following endpoints:
 
 <a name="user-get"></a>
 
@@ -150,7 +150,7 @@ CarrierBridge provides a User API that allows you to manage user-related operati
    DELETE /api/deleteUser/123
    ```
 
-Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the CarrierBridge API. For more specific details and any additional headers or parameters needed for authentication, consult the CarrierBridge API documentation or reach out to the API provider.
+Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the ManagementSystem API. For more specific details and any additional headers or parameters needed for authentication, consult the ManagementSystem API documentation or reach out to the API provider.
 
 ##### [Go to top:arrow_up: ](#top)
 
@@ -160,7 +160,7 @@ Please ensure that you replace placeholders like `:id` with actual values when m
 
 **Department API Documentation**
 
-CarrierBridge provides a Department API that allows you to manage department-related operations. This API includes the following endpoints:
+ManagementSystem provides a Department API that allows you to manage department-related operations. This API includes the following endpoints:
 
 <a name="department-get"></a>
 
@@ -237,7 +237,7 @@ CarrierBridge provides a Department API that allows you to manage department-rel
    DELETE /api/deleteDepartment/123
    ```
 
-Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the CarrierBridge API. For more specific details and any additional headers or parameters needed for authentication, consult the CarrierBridge API documentation or reach out to the API provider.
+Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the ManagementSystem API. For more specific details and any additional headers or parameters needed for authentication, consult the ManagementSystem API documentation or reach out to the API provider.
 
 ##### [Go to top:arrow_up: ](#top)
 
@@ -249,7 +249,7 @@ Please ensure that you replace placeholders like `:id` with actual values when m
 
 **Lab API Documentation**
 
-CarrierBridge provides a Lab API that allows you to manage lab-related operations. This API includes the following endpoints:
+ManagementSystem provides a Lab API that allows you to manage lab-related operations. This API includes the following endpoints:
 
 <a name="lab-get"></a>
 
@@ -324,7 +324,7 @@ CarrierBridge provides a Lab API that allows you to manage lab-related operation
    DELETE /api/deleteLab/123
    ```
 
-Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the CarrierBridge API. For more specific details and any additional headers or parameters needed for authentication, consult the CarrierBridge API documentation or reach out to the API provider.
+Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the ManagementSystem API. For more specific details and any additional headers or parameters needed for authentication, consult the ManagementSystem API documentation or reach out to the API provider.
 
 ##### [Go to top:arrow_up: ](#top)
 

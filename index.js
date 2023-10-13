@@ -392,36 +392,6 @@ async function run() {
       }
     });
 
-    // Delete teacher data
-    app.delete('/api/deleteTeacher/:id', async (req, res) => {
-      try {
-        const id = req.params.id;
-
-        // Check if the provided id is in a valid ObjectId format
-        if (!ObjectId.isValid(id)) {
-          return res.status(400).json({ message: 'Invalid teacher ID format' });
-        }
-
-        const query = { _id: new ObjectId(id) };
-        const existingTeacher = await teachersCollection.findOne(query);
-
-        if (!existingTeacher) {
-          return res.status(404).json({ message: 'Teacher data not found' });
-        }
-
-        const deleteTeacher = await teachersCollection.deleteOne(query);
-
-        if (deleteTeacher.deletedCount === 1) {
-          return res.status(200).json({ message: 'Teacher deleted successfully' });
-        } else {
-          return res.status(500).json({ message: 'Failed to delete teacher' });
-        }
-      } catch (error) {
-        res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
-      }
-    });
-
 
 
 
@@ -500,7 +470,35 @@ async function run() {
     });
 
 
+    // Delete teacher data
+    app.delete('/api/deleteTeacher/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
 
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid teacher ID format' });
+        }
+
+        const query = { _id: new ObjectId(id) };
+        const existingTeacher = await teachersCollection.findOne(query);
+
+        if (!existingTeacher) {
+          return res.status(404).json({ message: 'Teacher data not found' });
+        }
+
+        const deleteTeacher = await teachersCollection.deleteOne(query);
+
+        if (deleteTeacher.deletedCount === 1) {
+          return res.status(200).json({ message: 'Teacher deleted successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to delete teacher' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error ⚠' });
+        console.log({ message: error });
+      }
+    });
 
 
 
