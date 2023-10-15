@@ -48,7 +48,6 @@ async function run() {
     })
 
     // get single user data
-
     app.get('/api/user/:id', async (req, res) => {
       try {
         const id = req.params.id
@@ -59,7 +58,7 @@ async function run() {
           return;
         }
         const existingUser = await usersCollection.findOne(filter)
-        if (!existingUser) res.status(404).json({ message: 'User not found!' })
+        if (!existingUser) return res.status(404).json({ message: 'User not found!' })
         res.status(200).send(existingUser)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
@@ -222,6 +221,25 @@ async function run() {
       }
     })
 
+    // get single department data
+    app.get('/api/department/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid department ID format" });
+          return;
+        }
+        const existingDepartment = await departmentCollection.findOne(filter)
+        if (!existingDepartment) return res.status(404).json({ message: 'Department not found!' })
+        res.status(200).send(existingDepartment)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
+      }
+    })
+
     // add new departmentData
     app.post('/api/addDepartment', async (req, res) => {
       try {
@@ -322,6 +340,44 @@ async function run() {
         const labs = await labsCollection.find({}).toArray()
         if (labs.length === 0) return res.status(404).json({ message: "Labs not founds !" })
         res.status(200).send(labs)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
+      }
+    })
+
+    // get single teacher data
+    app.get('/api/teacher/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid teacher ID format" });
+          return;
+        }
+        const existingTeacher = await teachersCollection.findOne(filter)
+        if (!existingTeacher) return res.status(404).json({ message: 'Teacher not found!' })
+        res.status(200).send(existingTeacher)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
+      }
+    })
+
+    // get single lab data
+    app.get('/api/lab/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid lab ID format" });
+          return;
+        }
+        const existingLab = await labsCollection.findOne(filter)
+        if (!existingLab) return res.status(404).json({ message: 'Lab not found!' })
+        res.status(200).send(existingLab)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
         // console.log({ message: error });
@@ -430,6 +486,8 @@ async function run() {
         // console.log({ message: error });
       }
     })
+
+
 
     // add new teacherData
     app.post('/api/addTeacher', async (req, res) => {
