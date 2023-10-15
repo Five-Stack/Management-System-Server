@@ -47,6 +47,15 @@
 
 ---
 
+- [SliderBg Api SliderBg API Documentation](#sliderBg)
+  - [SliderBg Get Api](#sliderBg-get)
+  - [Single SliderBg Get Api](#single-sliderBg-get)
+  - [SliderBg Add Api](#sliderBg-add)
+  - [SliderBg Update Api](#sliderBg-update)
+  - [SliderBg Delete Api](#sliderBg-delete)
+
+---
+
 <!-- - [Blog Api Blog API Documentation](#blog)
   - [Blog Get Api](#blog-get)
   - [Blog Add Api](#blog-add)
@@ -696,3 +705,143 @@ Please ensure that you replace placeholders like `:id` with actual values when m
 ##### [Go to top:arrow_up: ](#top)
 
 ---
+
+<a name="sliderbg"></a>
+
+**SliderBg API Documentation**
+
+ManagementSystem provides a SliderBg API that allows you to manage slider background operations. This API includes the following endpoints:
+
+<a name="sliderbg-get"></a>
+
+1. **SliderBg Get API**
+
+   - Endpoint: `/api/sliderbgs`
+   - Method: GET
+   - Description: Retrieve a list of all slider backgrounds in the system.
+
+   **Usage Example:**
+   To fetch a list of all slider backgrounds, make a GET request to `/api/sliderbgs`. This will return a JSON response containing slider background data.
+
+##### [Go to top:arrow_up: ](#top)
+
+<a name="single-sliderbg-get"></a>
+
+### Single SliderBg Get API
+
+#### Description
+
+This API endpoint allows you to retrieve information about a single slider background based on its unique identifier (ID).
+
+#### Request
+
+- **Method:** GET
+- **Route:** `/api/sliderbg/:id`
+  - `:id` - The unique identifier of the slider background you want to retrieve.
+
+#### Response
+
+- **Success (200 OK):** If the request is successful, the API will respond with the slider background's information in JSON format. Here is an example response:
+
+```json
+{
+  "bannerImg": "https://i.ibb.co/4Nh0R1h/saic.png"
+}
+```
+
+- **Not Found (404 Not Found):** If no slider background with the specified ID is found, the API will respond with a 404 status code.
+
+- **Error (5xx):** If an error occurs on the server, the API may respond with an appropriate 5xx status code.
+
+#### Example
+
+**Request:**
+
+```http
+GET /api/sliderbg/12345
+```
+
+**Response (200 OK):**
+
+```json
+{
+  "bannerImg": "https://i.ibb.co/4Nh0R1h/saic.png"
+}
+```
+
+**Response (404 Not Found):**
+
+```json
+{
+  "error": "Slider background with ID 12345 not found."
+}
+```
+
+---
+
+You can use this API endpoint to retrieve information about a specific slider background by providing its unique identifier in the URL.
+
+##### [Go to top:arrow_up: ](#top)
+
+<a name="sliderbg-add"></a>
+
+2. **SliderBg Add API**
+
+   - Endpoint: `/api/addSliderBg`
+   - Method: POST
+   - Description: Add a new slider background to the system.
+
+   **Usage Example:**
+   To add a new slider background, make a POST request to `/api/addSliderBg` with a JSON request body containing slider background information, such as sliderBgName, sliderBgImg, and other attributes. The server will create a new slider background and return a confirmation message.
+
+   ```json
+   POST /api/addSliderBg
+   Request Body:
+
+   {
+    "bannerImg":"https://i.ibb.co/4Nh0R1h/saic.png"
+   }
+   ```
+
+##### [Go to top:arrow_up: ](#top)
+
+<a name="sliderbg-update"></a>
+
+3. **SliderBg Update API**
+
+   - Endpoint: `/api/updateSliderBg/:id`
+   - Method: PUT or PATCH
+   - Description: Update an existing slider background's information, identified by its unique `id`.
+
+   **Usage Example:**
+   To update a slider background's information, make a PUT or PATCH request to `/api/updateSliderBg/:id`, where `:id` is the unique identifier of the slider background you want to update. Provide a JSON request body with the fields you wish to update.
+
+   ```json
+   PUT /api/updateSliderBg/123
+   Request Body:
+   {
+    "bannerImg":"https://i.ibb.co/4Nh0R1h/saic.png"
+   }
+   ```
+
+##### [Go to top:arrow_up: ](#top)
+
+<a name="sliderbg-delete"></a>
+
+4. **Delete SliderBg API**
+
+   - Endpoint: `/api/deleteSliderBg/:id`
+   - Method: DELETE
+   - Description: Delete a slider background from the system, identified by its unique `id`.
+
+   **Usage Example:**
+   To delete a slider background, make a DELETE request to `/api/deleteSliderBg/:id`, where `:id` is the unique identifier of the slider background you want to delete.
+
+   ```
+   DELETE /api/deleteSliderBg/123
+   ```
+
+Please ensure that you replace placeholders like `:id` with actual values when making API requests. Additionally, consider implementing proper authentication and authorization mechanisms as required by the ManagementSystem API. For more specific details and any additional headers or parameters needed for authentication, consult the ManagementSystem API documentation or reach out to the API provider.
+
+##### [Go to top:arrow_up: ](#top)
+
