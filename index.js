@@ -617,7 +617,6 @@ async function run() {
     })
 
 
-
     // add new teacherData
     app.post('/api/addSliderBg', async (req, res) => {
       try {
