@@ -43,7 +43,27 @@ async function run() {
         res.status(200).send(users)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
+      }
+    })
+
+    // get single user data
+
+    app.get('/api/user/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid user ID format" });
+          return;
+        }
+        const existingUser = await usersCollection.findOne(filter)
+        if (!existingUser) res.status(404).json({ message: 'User not found!' })
+        res.status(200).send(existingUser)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
       }
     })
 
@@ -63,7 +83,7 @@ async function run() {
         res.status(200).send(result);
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -108,7 +128,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -150,7 +170,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -180,7 +200,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -198,7 +218,7 @@ async function run() {
         res.status(200).send(departments)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -210,7 +230,7 @@ async function run() {
         res.status(200).send(result)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -255,7 +275,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -286,7 +306,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -304,7 +324,7 @@ async function run() {
         res.status(200).send(labs)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -316,7 +336,7 @@ async function run() {
         res.status(200).send(result)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -358,7 +378,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -388,7 +408,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -407,7 +427,7 @@ async function run() {
         res.status(200).send(teachers)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -419,7 +439,7 @@ async function run() {
         res.status(200).send(result)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -465,7 +485,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -496,7 +516,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -526,7 +546,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`The Server Is Running On Port:http://localhost:${port}`);
 })
-
 
 
 

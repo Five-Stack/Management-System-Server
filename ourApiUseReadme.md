@@ -12,6 +12,7 @@
 
 - [User Api User API Documentation](#user)
   - [User Get Api](#user-get)
+  - [Single User Get Api](#single-user-get)
   - [User Add Api](#user-add)
   - [User Update Api](#user-update)
   - [User Role Update Api](#user-role-update)
@@ -21,6 +22,7 @@
 
 - [Department Api Department API Documentation](#department)
   - [Department Get Api](#department-get)
+  - [Single Deparment Get Api](#single-deparment-get)
   - [Department Add Api](#department-add)
   - [Department Update Api](#department-update)
   - [Department Delete Api](#department-delete)
@@ -29,6 +31,7 @@
 
 - [Lab Api Lab API Documentation](#lab)
   - [Lab Get Api](#lab-get)
+  - [Single Lab Get Api](#single-lab-get)
   - [Lab Add Api](#lab-add)
   - [Lab Update Api](#lab-update)
   - [Lab Delete Api](#lab-delete)
@@ -37,6 +40,7 @@
 
 - [Teacher Api Teacher API Documentation](#teacher)
   - [Teacher Get Api](#teacher-get)
+  - [Single Teacher Get Api](#single-teacher-get)
   - [Teacher Add Api](#teacher-add)
   - [Teacher Update Api](#teacher-update)
   - [Teacher Delete Api](#teacher-delete)
@@ -72,7 +76,83 @@ ManagementSystem provides a User API that allows you to manage user-related oper
    **Usage Example:**
    To fetch a list of all users, make a GET request to `/api/users`. This will return a JSON response containing user data.
 
+
 ##### [Go to top:arrow_up: ](#top)
+
+<a name="single-user-get"></a>
+
+### Single User Get API
+
+#### Description
+
+This API endpoint allows you to retrieve information about a single user based on their unique identifier (ID).
+
+#### Request
+
+- **Method:** GET
+- **Route:** `/api/user/:id`
+  - `:id` - The unique identifier of the user you want to retrieve.
+
+#### Response
+
+- **Success (200 OK):** If the request is successful, the API will respond with the user's information in JSON format. Here is an example response:
+
+```json
+{
+    "userName": "John Doe",
+    "email": "john.doe@example.com",
+    "phoneNo": "01711-XXXXXX",
+    "userImg": "https://i.ibb.co/CQt5BBG/front-view-male-student-wearing-black-backpack-holding-copybooks-files-blue-wall-140725-42637.jpg",
+    "role": "student"
+  // Additional user attributes
+}
+```
+
+- **Not Found (404 Not Found):** If no user with the specified ID is found, the API will respond with a 404 status code.
+
+- **Error (5xx):** If an error occurs on the server, the API may respond with an appropriate 5xx status code.
+
+#### Example
+
+**Request:**
+
+```http
+GET /api/user/12345
+```
+
+**Response (200 OK):**
+
+```json
+{
+    "userName": "John Doe",
+    "email": "john.doe@example.com",
+    "phoneNo": "01711-XXXXXX",
+    "userImg": "https://i.ibb.co/CQt5BBG/front-view-male-student-wearing-black-backpack-holding-copybooks-files-blue-wall-140725-42637.jpg",
+    "role": "student"
+}
+```
+
+**Response (404 Not Found):**
+
+```json
+{
+  "error": "User with ID 12345 not found."
+}
+```
+
+---
+
+You can use this API endpoint to retrieve information about a specific user by providing their unique identifier in the URL.
+
+
+
+
+
+##### [Go to top:arrow_up: ](#top)
+
+
+
+
 
 <a name="user-add"></a>
 
@@ -382,8 +462,12 @@ ManagementSystem provides a Teacher API that allows you to manage teacher-relate
    Request Body:
 
    {
-     "labName": "Computer teacher",
-    "labImg": "https://i.ibb.co/LdZ9Wr7/modern-equipped-computer-teacher-23-2149241198.jpg"
+    "teacherName": "David Brown",
+    "teacherImg": "https://i.ibb.co/BP7Cfy2/front-view-man-doing-presentation-during-meeting-23-2148817046.jpg",
+    "designation": "Lecturer",
+    "contactNo": "01556789012",
+    "email": "david.brown@example.com",
+    "facebookUrl": "https://www.facebook.com/davidbrown"
    }
    ```
 
