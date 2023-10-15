@@ -30,6 +30,7 @@ async function run() {
     const departmentCollection = client.db("managementSystemDB").collection("allDepartments")
     const labsCollection = client.db("managementSystemDB").collection("labs")
     const teachersCollection = client.db("managementSystemDB").collection("teachers")
+    const sliderBgCollection = client.db("managementSystemDB").collection("sliderBgs")
 
 
 
@@ -43,7 +44,26 @@ async function run() {
         res.status(200).send(users)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
+      }
+    })
+
+    // get single user data
+    app.get('/api/user/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid user ID format" });
+          return;
+        }
+        const existingUser = await usersCollection.findOne(filter)
+        if (!existingUser) return res.status(404).json({ message: 'User not found!' })
+        res.status(200).send(existingUser)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
       }
     })
 
@@ -63,7 +83,7 @@ async function run() {
         res.status(200).send(result);
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -108,7 +128,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -150,7 +170,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -180,7 +200,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -198,7 +218,26 @@ async function run() {
         res.status(200).send(departments)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
+      }
+    })
+
+    // get single department data
+    app.get('/api/department/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid department ID format" });
+          return;
+        }
+        const existingDepartment = await departmentCollection.findOne(filter)
+        if (!existingDepartment) return res.status(404).json({ message: 'Department not found!' })
+        res.status(200).send(existingDepartment)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
       }
     })
 
@@ -210,7 +249,7 @@ async function run() {
         res.status(200).send(result)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -255,7 +294,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -286,7 +325,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -304,7 +343,26 @@ async function run() {
         res.status(200).send(labs)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
+      }
+    })
+
+    // get single lab data
+    app.get('/api/lab/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid lab ID format" });
+          return;
+        }
+        const existingLab = await labsCollection.findOne(filter)
+        if (!existingLab) return res.status(404).json({ message: 'Lab not found!' })
+        res.status(200).send(existingLab)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
       }
     })
 
@@ -316,7 +374,7 @@ async function run() {
         res.status(200).send(result)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -358,7 +416,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -388,7 +446,7 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -403,13 +461,34 @@ async function run() {
     app.get('/api/teachers', async (req, res) => {
       try {
         const teachers = await teachersCollection.find({}).toArray()
-        if (teachers.length === 0) return res.status(404).json({ message: "Teachers not founds !" })
+        if (teachers.length === 0) return res.status(404).json({ message: "SliderBgs not founds !" })
         res.status(200).send(teachers)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
+
+    // get single teacher data
+    app.get('/api/teacher/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid teacher ID format" });
+          return;
+        }
+        const existingTeacher = await teachersCollection.findOne(filter)
+        if (!existingTeacher) return res.status(404).json({ message: 'Teacher not found!' })
+        res.status(200).send(existingTeacher)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
+      }
+    })
+
+
 
     // add new teacherData
     app.post('/api/addTeacher', async (req, res) => {
@@ -419,7 +498,7 @@ async function run() {
         res.status(200).send(result)
       } catch (error) {
         res.status(500).json({ message: "Internal server error 500 ⚠" })
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     })
 
@@ -465,7 +544,7 @@ async function run() {
 
       } catch (error) {
         res.status(500).json({ message: "Internal server error ⚠" });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
 
@@ -496,9 +575,137 @@ async function run() {
         }
       } catch (error) {
         res.status(500).json({ message: 'Internal server error ⚠' });
-        console.log({ message: error });
+        // console.log({ message: error });
       }
     });
+
+
+
+    /* ========================================================================================================================= */
+
+    // our all sliderBgs api
+
+    // get data all sliderBgs
+    app.get('/api/sliderBgs', async (req, res) => {
+      try {
+        const sliderBgs = await sliderBgCollection.find({}).toArray()
+        if (sliderBgs.length === 0) return res.status(404).json({ message: "SliderBgs not founds !" })
+        res.status(200).send(sliderBgs)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
+      }
+    })
+
+    // get single teacher data
+    app.get('/api/sliderBg/:id', async (req, res) => {
+      try {
+        const id = req.params.id
+        const filter = { _id: new ObjectId(id) }
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid sliderBg ID format" });
+          return;
+        }
+        const existingSliderBg = await sliderBgCollection.findOne(filter)
+        if (!existingSliderBg) return res.status(404).json({ message: 'SliderBg not found!' })
+        res.status(200).send(existingSliderBg)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
+      }
+    })
+
+
+    // add new teacherData
+    app.post('/api/addSliderBg', async (req, res) => {
+      try {
+        const newSliderBG = req.body
+        const result = await sliderBgCollection.insertOne(newSliderBG)
+        res.status(200).send(result)
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error 500 ⚠" })
+        // console.log({ message: error });
+      }
+    })
+
+    // Update sliderBg data
+    app.put('/api/updateSliderBg/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        const updateData = req.body;
+        const filter = { _id: new ObjectId(id) };
+
+        // Check if the provided id is valid
+        if (!ObjectId.isValid(id)) {
+          res.status(400).json({ message: "Invalid sliderBg ID format" });
+          return;
+        }
+
+        // Check if the sliderBg with the provided ID exists
+        const existingSliderBg = await sliderBgCollection.findOne(filter);
+        if (!existingSliderBg) {
+          res.status(404).json({ message: "SliderBg data not found" });
+          return;
+        }
+
+        const options = { upsert: true };
+        const updateSliderBg = {
+          $set: {
+            bannerImg: updateData.bannerImg ? updateData.bannerImg : null,
+          },
+        };
+
+        const result = await sliderBgCollection.updateOne(filter, updateSliderBg, options);
+
+        if (result.modifiedCount === 0) {
+          res.status(404).json({ message: "SliderBg data not found" });
+        } else {
+          res.status(200).json({ message: "SliderBg data updated successfully" });
+        }
+
+      } catch (error) {
+        res.status(500).json({ message: "Internal server error ⚠" });
+        // console.log({ message: error });
+      }
+    });
+
+
+    // Delete sliderBg data
+    app.delete('/api/deleteSliderBg/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+
+        // Check if the provided id is in a valid ObjectId format
+        if (!ObjectId.isValid(id)) {
+          return res.status(400).json({ message: 'Invalid sliderBg ID format' });
+        }
+
+        const query = { _id: new ObjectId(id) };
+        const existingSliderBg = await sliderBgCollection.findOne(query);
+
+        if (!existingSliderBg) {
+          return res.status(404).json({ message: 'SliderBg data not found' });
+        }
+
+        const deleteSliderBg = await sliderBgCollection.deleteOne(query);
+
+        if (deleteSliderBg.deletedCount === 1) {
+          return res.status(200).json({ message: 'SliderBg deleted successfully' });
+        } else {
+          return res.status(500).json({ message: 'Failed to delete sliderBg' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error ⚠' });
+        // console.log({ message: error });
+      }
+    });
+
+
+
+
+
+
 
 
 
@@ -526,7 +733,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`The Server Is Running On Port:http://localhost:${port}`);
 })
-
 
 
 
